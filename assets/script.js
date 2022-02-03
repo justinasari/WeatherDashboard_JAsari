@@ -1,20 +1,20 @@
 // Variables for Search Function
-var searchCity = $('#searchCity');
-var searchBtn = $('#searchBtn');
-var searchHistory = $('#searchHistory');
-var clearHistory = $('#clearHistory');
+var searchCity = $('#search-city');
+var searchBtn = $('#search-btn');
+var searchHistory = $('#search-history');
+var clearHistory = $('#clear-history');
 // Variables for Current Weather Data
-var weatherContent = $('#weatherContent');
-var currentCity = $('#currentCity');
-var currentTemp = $('#currentTemp');
-var currentHumidity = $('currentHumidity');
-var currentWindSpeed = $('#currentWindSpeed');
-var currentUVIndex = $('#uvIndex');
+var weatherContent = $('#weather-content');
+var currentCity = $('#current-city');
+var currentTemp = $('#current-temp');
+var currentHumidity = $('current-humidity');
+var currentWindSpeed = $('#current-wind-speed');
+var currentUVIndex = $('#uv-index');
 // OpenWeather API Variable
 var owAPI = "b283d83ebf4c93aec4888448e2c60dfc";
 // Variable for Current Date
 var currentDate = moment().format('LL');
-$('#currentDate').text('(' + currentDate + ")");
+$('#current-date').text("(" + currentDate + ")");
 // Variable for list of Cities
 var cityList = [];
 
@@ -23,15 +23,15 @@ initializeHistory();
 showClear();
 
 // User input submission adds to local storage
-$(document).on("submit", function() {
-    e.preventDefault();
+$(document).on("submit", function(event) {
+    event.preventDefault();
     var userInput = searchCity.val().trim();
     currentWeather(userInput);
     lookHistory(userInput);
     searchCity.val("");
 });
-searchBtn.on("click", function(e) {
-    e.preventDefault();
+searchBtn.on("click", function(event) {
+    event.preventDefault();
     var userInput = searchCity.val().trim();
     currentWeather(userInput);
     lookHistory(userInput);
@@ -46,23 +46,23 @@ clearHistory.on("click", function() {
 });
 
 // Function enables to go back to previously searched cities
-searchHistory.on("click", "li.city-btn", function(e) {
+searchHistory.on("click", "li.city-btn", function(event) {
     var value = $(this).data("value");
     currentWeather(value);
-    searchHistory(value);
+    lookHistory(value);
 });
 
 // Function requests User Input through API
 function currentWeather(userInput) {
-    var queryURL = "https://api.openweathermpa.org/data/2.5/weather?q=" + userInput + "&units=imperial&appid=" + owAPI;
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + userInput + "&units=imperial&appid=" + owAPI;
     $.ajax( {
         url: queryURL,
         method: "GET"
     }).then(function(response) {
         console.log(response);
         currentCity.text(response.name);
-        currentCity.append("<small class='text-muted' id='currentDate'>");
-        $("#currentDate").text("(" + currentDate + ")");
+        currentCity.append("<small class='text-muted' id='current-Date'>");
+        $("#current-date").text("(" + currentDate + ")");
         currentCity.append("<img src='https://openweathermap.org/img/w/" + response.weather[0].icon + ".png' alt='" + response.weather[0].main + "' />")
         currentTemp.text(response.main.temp);
         currentTemp.append("&deg;F");
@@ -76,7 +76,7 @@ function currentWeather(userInput) {
             url: uvURL,
             method: "GET"
         }).then(function(response) {
-          currentUVIndex.texT(response.value);  
+          currentUVIndex.text(response.value);  
         });
 
         var countryCode = response.sys.country;
@@ -86,7 +86,7 @@ function currentWeather(userInput) {
             method: "GET"
         }).then(function(response) {
             console.log(response);
-            $('#fiveDayForecast').empty();
+            $('#five-day-forecast').empty();
             for (var i = 1; i < response.list.length; i+=8) {
                 var forecastDateString = moment(response.list[i].dt_txt).format("L");
                 console.log(forecastDateString);
@@ -98,10 +98,26 @@ function currentWeather(userInput) {
                 var forecastTemp = $("<p class='card-text mb-0'>");
                 var forecastHumidity = $("<p class='card-text mb-0'>");
 
-                
+                $('#five-day-forecast').append(forecastColumn);
+                forecastColumn.append(forecastCard);
+                forecastCard.append(forecastCardBody);
+                forecastCardBody.append(forecastDate);
+                forecastCardBody.append(forecastIcon);
+                forecastCardBody.append(forecastTemp);
+                forecastCardBody.append(forecastHumidity);
+
+                forecastIcon.attr("src", "https://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
+                forecastIcon.attr("alt", response.list[i].weather[0].main)
+                forecastDate.text(forecastDateString);
+                forecastTemp.text(response.list[i].main.temp);
+                forecastTemp.prepend("Temp: ");
+                forecastTemp.append("&deg;F");
+                forecastHumidity.text(response.list[i].main.humidity);
+                forecastHumidity.prepend("Humidity: ");
+                forecastHumidity.append("%");
             }
-        }
-    })
+        });
+    });
 };
 
 // Search History display/save to local storage
@@ -127,10 +143,10 @@ function lookHistory(userInput) {
 function listArray() {
     searchHistory.empty();
     cityList.forEach(function(city) {
-        var searchHistoryItem = $('<li class="list-group-item city-btn">');
-        searchHistoryItem.attr("data-value", city);
-        searchHistoryItem.text(city);
-        searchHistory.prepend(searchHistoryItem);
+        var searchItem = $('<li class="list-group-item city-btn">');
+        searchItem.attr("data-value", city);
+        searchItem.text(city);
+        searchHistory.prepend(searchItem);
     });
     localStorage.setItem("cities", JSON.stringify(cityList));
 }
