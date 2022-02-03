@@ -1,20 +1,20 @@
 // Variables for Search Function
-var searchCity = $('#search-city');
-var searchBtn = $('#search-btn');
-var searchHistory = $('#search-history');
-var clearHistory = $('#clear-history');
+var searchCity = $("#search-city");
+var searchBtn = $("#search-city-button");
+var searchHistory = $("#search-history");
+var clearHistory = $("#clear-history");
 // Variables for Current Weather Data
-var weatherContent = $('#weather-content');
-var currentCity = $('#current-city');
-var currentTemp = $('#current-temp');
-var currentHumidity = $('current-humidity');
-var currentWindSpeed = $('#current-wind-speed');
-var currentUVIndex = $('#uv-index');
+var weatherContent = $("#weather-content");
+var currentCity = $("#current-city");
+var currentTemp = $("#current-temp");
+var currentHumidity = $("#current-humidity");
+var currentWindSpeed = $("#current-wind-speed");
+var currentUVIndex = $("#uv-index");
 // OpenWeather API Variable
 var owAPI = "b283d83ebf4c93aec4888448e2c60dfc";
 // Variable for Current Date
-var currentDate = moment().format('LL');
-$('#current-date').text("(" + currentDate + ")");
+var currentDate = moment().format('LLL');
+$("#current-date").text("(" + currentDate + ")");
 // Variable for list of Cities
 var cityList = [];
 
@@ -67,7 +67,7 @@ function currentWeather(userInput) {
         currentTemp.text(response.main.temp);
         currentTemp.append("&deg;F");
         currentHumidity.text(response.main.humidity + "%");
-        currentWindSpeed.text(reponse.wind.speed + "MPH");
+        currentWindSpeed.text(response.wind.speed + "MPH");
 
         var lat = response.coord.lat;
         var lon = response.coord.lon;
@@ -76,7 +76,7 @@ function currentWeather(userInput) {
             url: uvURL,
             method: "GET"
         }).then(function(response) {
-          currentUVIndex.text(response.value);  
+            currentUVIndex.text(response.value);
         });
 
         var countryCode = response.sys.country;
