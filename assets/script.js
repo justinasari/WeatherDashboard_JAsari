@@ -1,6 +1,6 @@
 // Variables for Search Function
 var searchCity = $("#search-city");
-var searchBtn = $("#search-city-button");
+var searchBtn = $("#search-btn");
 var searchHistory = $("#search-history");
 var clearHistory = $("#clear-history");
 // Variables for Current Weather Data
