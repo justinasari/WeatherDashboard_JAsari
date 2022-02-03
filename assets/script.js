@@ -61,7 +61,7 @@ function currentWeather(userInput) {
     }).then(function(response) {
         console.log(response);
         currentCity.text(response.name);
-        currentCity.append("<small class='text-muted' id='current-Date'>");
+        currentCity.append("<small class='text-muted' id='current-date'>");
         $("#current-date").text("(" + currentDate + ")");
         currentCity.append("<img src='https://openweathermap.org/img/w/" + response.weather[0].icon + ".png' alt='" + response.weather[0].main + "' />")
         currentTemp.text(response.main.temp);
