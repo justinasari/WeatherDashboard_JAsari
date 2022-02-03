@@ -36,3 +36,4 @@ Thank you to OpenWeather's team for allowing the use of their API and their exte
 - 2/2/2022: Published on GitHub
 - 2/3/2022: Fixed formatting and typo issues, and replaced single quotations with double due to faulty 5 Day Forecast and Current Humidity, Wind Speed, and UV calls.
 - 2/3/2022: Polished README
+- 2/3/2022: Added Wind Speed to 5 Day Forecast and Color Variation for Temperature.

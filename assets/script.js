@@ -97,6 +97,7 @@ function currentWeather(userInput) {
                 var forecastIcon = $("<img>");
                 var forecastTemp = $("<p class='card-text mb-0'>");
                 var forecastHumidity = $("<p class='card-text mb-0'>");
+                var forecastWindSpeed = $("<p class='card-text mb-0'>");
 
                 $('#five-day-forecast').append(forecastColumn);
                 forecastColumn.append(forecastCard);
@@ -105,6 +106,7 @@ function currentWeather(userInput) {
                 forecastCardBody.append(forecastIcon);
                 forecastCardBody.append(forecastTemp);
                 forecastCardBody.append(forecastHumidity);
+                forecastCardBody.append(forecastWindSpeed);
 
                 forecastIcon.attr("src", "https://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
                 forecastIcon.attr("alt", response.list[i].weather[0].main)
@@ -115,6 +117,9 @@ function currentWeather(userInput) {
                 forecastHumidity.text(response.list[i].main.humidity);
                 forecastHumidity.prepend("Humidity: ");
                 forecastHumidity.append("%");
+                forecastWindSpeed.text(response.list[i].wind.speed);
+                forecastWindSpeed.prepend("Wind Speed: ");
+                forecastWindSpeed.append("MPH");
             }
         });
     });

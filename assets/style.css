@@ -1,3 +1,16 @@
+:root {
+    --hottest: #ff0000;
+    --hotter: #ff5757;
+    --hot: #ff7575;
+    --warmer: #ff7b00;
+    --warm: #ffa46f;
+    --cool: #0093b8;
+    --cooler: #1100ff;
+    --cold: #e100ff;
+    --colder: #a200ff;
+    --coldest: #6200ff;
+}
+
 html, body, .container-fluid, .content-row {
     height: 100%;
 }
@@ -12,5 +25,5 @@ html, body, .container-fluid, .content-row {
 }
 
 .card {
-    background-color: #8ac3ff;
+    background-color: #5bc3ff;
 }
